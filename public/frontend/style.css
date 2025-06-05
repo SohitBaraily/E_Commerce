@@ -1,0 +1,23 @@
+:root{
+    --primary: #009900;
+    --secondary: #ffcc33;
+    --ancient: #202020;
+    --paragraph: #333;
+}
+
+body{
+    color: var(--ancient-color);
+}
+
+p{
+    color: var(--paragraph);
+}
+
+.container{
+    width: 86%;
+    margin: auto;
+}
+
+button{
+    cursor: pointer;
+}
