@@ -1,14 +1,16 @@
-<header class="bg-[var(--primary)] py-3 shadow-md sticky top-0">
+<header class="bg-[var(--primary)] py-3 shadow-md sticky top-0 z-50">
     <nav class="container flex justify-between items-center gap-10">
         <div class="w-[25%]">
-            <img class="h-[40px]" src="{{ asset(Storage::url($company->logo)) }}" alt="">
+            <a href="{{route('home')}}">
+                <img class="h-[40px]" src="{{ asset(Storage::url($company->logo)) }}" alt="">
+            </a>
 
         </div>
         <div class="w-[50%]">
 
-            <form action="" method="get">
+            <form action="{{route('compare')}}" method="get">
                 <div class="flex">
-                    <input type="text" name="company" id="comapny" placeholder="Compare Products By Name">
+                    <input class="w-full" type="text" name="q" placeholder="Compare Products By Name">
                     <button type="submit" class="bg-gray-100 text-[var(--primary)] px-4 py-2">Compare</button>
                 </div>
             </form>

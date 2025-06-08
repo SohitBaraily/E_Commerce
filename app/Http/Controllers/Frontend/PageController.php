@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Mail\VendorRequestNotification;
 use App\Models\Admin;
+use App\Models\Product;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,8 @@ class PageController extends BaseController
 {
     public function home()
     {
-        return view('frontend.home');
+        $vendors = Shop::where('status', 'approved')->where('expire_date', '>', now())->get();
+        return view('frontend.home', compact('vendors'));
     }
     public function vendor_request(Request $request )
     {
@@ -36,5 +38,29 @@ class PageController extends BaseController
         Mail::to($admins)->send(new VendorRequestNotification($vendor));
         toast('Your request has been successfully submitted', 'success');
         return redirect()->back();
+    }
+
+    public function shop($id)
+    {
+        $vendor = Shop::where('status', 'approved')->where('id', $id)->first();
+        if(!$vendor){
+            return view("error.404");
+        }
+        $products = $vendor->products()->where('status', true)->get();
+        return view('frontend.vendor', compact('vendor', 'products'));
+    }
+    public function product($id)
+    {
+        $product = Product::where('status', true)->where('id', $id)->first();
+        if(!$product){
+            return view("error.404");
+        }
+        return view('frontend.product', compact('product'));
+    }
+
+    public function compare(Request $request)
+    {
+        $q = $request->q;
+        $product = Product::where('name','like', "%$q%")->get();
     }
 }

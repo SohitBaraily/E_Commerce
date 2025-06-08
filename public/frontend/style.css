@@ -11,6 +11,7 @@ body{
 
 p{
     color: var(--paragraph);
+    font-size : 14px;
 }
 
 .container{

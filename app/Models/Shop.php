@@ -7,6 +7,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -51,6 +52,16 @@ class Shop extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    /**
+     * Get all of the products for the Shop
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
     }
 }
 
