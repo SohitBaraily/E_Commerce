@@ -8,7 +8,7 @@
         </h2>
         @if ($product->discount > 0)
             <p>
-                <span class="line-through text-red">NRs.{{ $product->price }}</span>
+                <span class="line-through text-red-700">NRs.{{ $product->price }}</span>
                 {{ $product->price - ($product->price * $product->discount) / 100 }}
             </p>
         @else

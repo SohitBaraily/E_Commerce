@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->double('discount')->default(0);
-            $table->string('price');
+            $table->double('price');
             $table->json('categories');
             $table->string('brand');
             $table->json('images');

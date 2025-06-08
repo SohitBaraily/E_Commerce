@@ -18,7 +18,7 @@ class PageController extends BaseController
         $vendors = Shop::where('status', 'approved')->where('expire_date', '>', now())->get();
         return view('frontend.home', compact('vendors'));
     }
-    public function vendor_request(Request $request )
+    public function vendor_request(Request $request)
     {
         $request->validate([
             'name' => "required|max:50",
@@ -43,7 +43,7 @@ class PageController extends BaseController
     public function shop($id)
     {
         $vendor = Shop::where('status', 'approved')->where('id', $id)->first();
-        if(!$vendor){
+        if (!$vendor) {
             return view("error.404");
         }
         $products = $vendor->products()->where('status', true)->get();
@@ -52,7 +52,7 @@ class PageController extends BaseController
     public function product($id)
     {
         $product = Product::where('status', true)->where('id', $id)->first();
-        if(!$product){
+        if (!$product) {
             return view("error.404");
         }
         return view('frontend.product', compact('product'));
@@ -61,6 +61,17 @@ class PageController extends BaseController
     public function compare(Request $request)
     {
         $q = $request->q;
-        $product = Product::where('name','like', "%$q%")->get();
+        $min = $request->min;
+        $max = $request->max;
+        if (!$min && !$max) {
+            $products = Product::where('name', 'like', "%$q%")->orderBy('price', 'asc')->get();
+            return view('frontend.compare', compact("products", "q"));
+        }else{
+            $products = Product::where('name', 'like', "%$q%")->orderBy('price', 'asc')->whereBetween('price', [$min, $max])->get();
+            return view('frontend.compare', compact("products", "q", "min", "max"));
+
+        }
+
+
     }
 }
