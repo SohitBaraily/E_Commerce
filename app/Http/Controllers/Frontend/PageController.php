@@ -55,6 +55,7 @@ class PageController extends BaseController
         if (!$product) {
             return view("error.404");
         }
+        
         return view('frontend.product', compact('product'));
     }
 

@@ -233,7 +233,19 @@
             }
         }
     </style>
+    <div class="grid md:grid-cols-2 gap-4">
+        @foreach ($advertises as $advertise)
+            @if ($advertise->ad_position == 'product')
+                <div>
+                    <a href="{{ $advertise->redirect_url }}" target="_blank">
+                        <img class="w-full h-[120px]" src="{{ asset(Storage::url($advertise->image)) }}" alt="">
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    </div>
     <div class = "card-wrapper">
+
         <div class = "card">
             <!-- card left -->
             <div class = "product-imgs">
@@ -286,10 +298,11 @@
                 </div>
 
                 <div class = "purchase-info">
-                    <form action="{{route('add_to_cart')}}" method="post">
+                    <form action="{{ route('add_to_cart') }}" method="post">
                         @csrf
                         <input type = "number" name="quantity" min = "1" max="10" value = "1">
-                        <input type = "number" name="product_id" min = "1" max="10" value = "{{$product->id}}" hidden>
+                        <input type = "number" name="product_id" min = "1" max="10"
+                            value = "{{ $product->id }}" hidden>
                         <button type = "submit" class = "btn">
                             Add to Cart <i class = "fas fa-shopping-cart"></i>
                         </button>

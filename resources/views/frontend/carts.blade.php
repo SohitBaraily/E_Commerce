@@ -18,7 +18,6 @@
                                     <th>Product Price</th>
                                     <th>Quantity</th>
                                     <th>Amount</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,7 +27,7 @@
                                         <td class="p-2">{{ Str::limit($cart->product->name, 25, '...') }}</td>
                                         <td class="p-2">{{ $cart->product->price }}</td>
                                         <td class="p-2">{{ $cart->quantity }}</td>
-                                        <td class="p-2">{{ $cart->product->price * $cart->quantity }}</td>
+                                        <td class="p-2">{{ ($cart->product->price - (($cart->product->price * $cart->product->discount) / 100)) * $cart->quantity }}</td>
                                         <td class="p-2">
                                             <!-- Optional: Remove button or other actions -->
                                         </td>

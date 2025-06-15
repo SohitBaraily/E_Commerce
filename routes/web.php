@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\GoogleLoginController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\UserController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/home', function () {
@@ -19,7 +20,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/carts', [UserController::class, 'carts'])->name('carts');
     Route::get('/checkout/{id}', [UserController::class, 'checkout'])->name('checkout');
     Route::post('/order_store/{id}', [UserController::class, 'order_store'])->name('order_store');
+
+    Route::get('/khalti', [UserController::class, 'khalti']);
+
+    Route::get('/success', [UserController::class, 'success'])->name('success');
+    Route::get('/failure', [UserController::class, 'failure'])->name('failure');
 });
+Route::get('/details/{record}', function ($record) {
+    $order = Order::findOrFail($record);
+    return view('order_details', compact('order'));
+})->name('details');
 
 Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');

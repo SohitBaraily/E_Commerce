@@ -1,13 +1,25 @@
 <x-frontend-layout>
     <section>
         <div class="container py-10">
+            <div class="grid md:grid-cols-2 gap-4">
+                @foreach ($advertises as $advertise)
+                    @if ($advertise->ad_position == 'feature')
+                        <div>
+                            <a href="{{ $advertise->redirect_url }}" target="_blank">
+                                <img class="w-full h-[120px]" src="{{ asset(Storage::url($advertise->image)) }}"
+                                    alt="">
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
             <div>
                 <h2 class="text-2xl text-[var(--primary)]">Featured Restaurant/Store</h2>
                 <p>The nearest restaurant/store to your location</p>
             </div>
             <div class="mt-5 grid md:grid-cols-3 gap-4">
                 @foreach ($vendors as $vendor)
-                    <a href="{{route('shop', $vendor->id)}}">
+                    <a href="{{ route('shop', $vendor->id) }}">
                         <div class="shadow-md hover:shadow-lg shadow-[grey] rounded-lg overflow-hidden">
                             <img class="w-full h-[200px] odject-cover" src="{{ asset(Storage::url($vendor->profile)) }}"
                                 alt="">
@@ -27,6 +39,18 @@
     </section>
     <section>
         <div class="w-[66%] m-auto py-20 text-center">
+            <div class="grid md:grid-cols-2 gap-4">
+                @foreach ($advertises as $advertise)
+                    @if ($advertise->ad_position == 'form')
+                        <div>
+                            <a href="{{ $advertise->redirect_url }}" target="_blank">
+                                <img class="w-full h-[120px]" src="{{ asset(Storage::url($advertise->image)) }}"
+                                    alt="">
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
             <h1 class="text-3xl">
                 List your Restaurant or Store at Floor Digital Pvt. Ltd.!
                 Reach 1,00,000 + new customers.

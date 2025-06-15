@@ -25,6 +25,7 @@
                         <select name="payment" id="payment" class="w-full p-2 border border-gray-300 rounded">
                             <option value="cod">Cash on Delivery</option>
                             <option value="Khalti">Khalti</option>
+                            <option value="esewa">Esewa</option>
                         </select>
                     </div>
                     <div>
